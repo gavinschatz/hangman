@@ -1,5 +1,6 @@
 import random
 
+#Creating a random word from word list, with attributes for the word and length of word
 class randomWord:
     global wordlist
     wordlist = ["hello", "goodbye", "random", "love"]
@@ -14,7 +15,7 @@ class randomWord:
     def __repr__(self):
         return self.word
         
-
+#Method for creating the initial blank list with the correct amount of letters
 def blankList():
     answer = randomWord()
     
@@ -24,8 +25,8 @@ def blankList():
         list += ["_"]
     return list, answer, answer.len
 
+#class for all the attributes of the word
 class Play():
-
     def __init__(self):
         self.key = blankList()
         self.list = self.key[0]
@@ -34,17 +35,39 @@ class Play():
         self.guesses = 0
         self.lettersleft = self.key[2]
         
-
-
+#Section for making guesses, showing the board
 def interface():
     print("Welcome to Hangman. Below is the amount of letters in the word:")
     
     solved = False
     answer = Play()
     
+    #To print out the interface
+    def visual(answer):
+        incorrectparts = ["O", " \\", "|", "/", "|", "/", "\\"]
+        blanklist = [" " for letter in range(len(incorrectparts))]
+        for ind in range(answer.guesses):
+            blanklist[ind] = incorrectparts[ind]
+
+        print(" _____ ")
+        print("|     |  ")
+        print("|     " + str(blanklist[0]) + "  ")
+        print("|   " + str(blanklist[1]) + str(blanklist[2]) + str(blanklist[3]) + " ")
+        print("|     " + str(blanklist[4]))
+        print("|    " + str(blanklist[5]) + " " + str(blanklist[6]) + " ")
+        print("---     ")
+        
+        templist = ""
+        for letter in answer.list:
+            templist += " " + str(letter)
+        print(templist)
+        
+
+    
     while solved == False:
-        print(answer.list)
-        guess = input("Enter guess:")
+        guess = input("Enter guess (type quit to end): ")
+        if guess == "quit":
+            break
         
         correct = False
         for index in range(answer.len):
@@ -63,6 +86,8 @@ def interface():
         
         if answer.lettersleft == 0:
             solved = True
+        
+        visual(answer)
         
     print("Answer - " + str(answer.answer))
     print("Thanks for playing, bye!!!")
