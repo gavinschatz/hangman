@@ -56,7 +56,7 @@ def interface():
     #To print out the interface
     def visual(answer):
         incorrectparts = ["O", "|", " \\", "/", "|", "/", "\\"]
-        blanklist = [" " for letter in range(len(incorrectparts))]
+        blanklist = ["  " for letter in range(len(incorrectparts))]
         for ind in range(answer.guesses):
             blanklist[ind] = incorrectparts[ind]
 
@@ -71,8 +71,8 @@ def interface():
         templist = ""
         for letter in answer.list:
             templist += " " + str(letter)
-        print(templist)
-        
+        print(templist)   
+    
     visual(answer)
     
     guessedletters = []
