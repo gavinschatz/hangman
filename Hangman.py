@@ -1,9 +1,20 @@
 import random
+# import nltk
+# nltk.download('words')
+# from nltk.corpus import words
+# word_list = words.words()
+
 
 #Creating a random word from word list, with attributes for the word and length of word
 class randomWord:
     global wordlist
-    wordlist = ["hello", "goodbye", "random", "love"]
+    wordlist = [
+    'zeppelin', 'pyramid', 'mystery', 'knight', 'hurricane', 'mountain',
+    'penguin', 'wizard', 'vortex', 'quicksand', 'volcano', 'eclipse',
+    'treasure', 'flamingo', 'dolphin', 'chocolate', 'sphinx', 'galaxy',
+    'ghost', 'keyboard', 'diamond', 'robot', 'bicycle', 'lighthouse',
+    'jungle', 'rainbow', 'unicorn', 'river', 'astronaut', 'skyscraper'
+]
     
     def __init__(self):
         self.word = random.choice(wordlist)
@@ -44,7 +55,7 @@ def interface():
     
     #To print out the interface
     def visual(answer):
-        incorrectparts = ["O", " \\", "|", "/", "|", "/", "\\"]
+        incorrectparts = ["O", "|", " \\", "/", "|", "/", "\\"]
         blanklist = [" " for letter in range(len(incorrectparts))]
         for ind in range(answer.guesses):
             blanklist[ind] = incorrectparts[ind]
@@ -52,7 +63,7 @@ def interface():
         print(" _____ ")
         print("|     |  ")
         print("|     " + str(blanklist[0]) + "  ")
-        print("|   " + str(blanklist[1]) + str(blanklist[2]) + str(blanklist[3]) + " ")
+        print("|   " + str(blanklist[2]) + str(blanklist[1]) + str(blanklist[3]) + " ")
         print("|     " + str(blanklist[4]))
         print("|    " + str(blanklist[5]) + " " + str(blanklist[6]) + " ")
         print("---     ")
@@ -62,35 +73,44 @@ def interface():
             templist += " " + str(letter)
         print(templist)
         
-
+    visual(answer)
     
+    guessedletters = []
     while solved == False:
         guess = input("Enter guess (type quit to end): ")
         if guess == "quit":
             break
+            
+        if guess in guessedletters:
+            print("Guess already made. Try again")
+        else:
+            guessedletters += guess
         
-        correct = False
-        for index in range(answer.len):
-            if guess == answer.answer[index]:
-                print("Answer Correct!")
-                answer.lettersleft -= 1
-                answer.list[index] = guess
-                correct = True
+            print(guessedletters)
+            correct = False
+            for index in range(answer.len):
+                if guess == answer.answer[index]:
+                    print("Answer Correct!")
+                    answer.lettersleft -= 1
+                    answer.list[index] = guess
+                    correct = True
         
-        if correct == False:
-            print("Answer Incorect... keep guessing!")
-            answer.guesses += 1
-    
+            if correct == False:
+                answer.guesses += 1
+                if answer.guesses > 6:
+                    visual(answer)
+                    print("Game over. Try again next time.")
+                    break
+                print("Answer Incorect... keep guessing!")
         
-        print("Incorrect guesses made: " + str(answer.guesses)) 
-        
-        if answer.lettersleft == 0:
-            solved = True
+            if answer.lettersleft == 0:
+                solved = True
+                print("Great job!")
         
         visual(answer)
         
     print("Answer - " + str(answer.answer))
-    print("Thanks for playing, bye!!!")
+    print("Thanks for playing, bye")
         
             
                 
