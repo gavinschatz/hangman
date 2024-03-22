@@ -26,18 +26,18 @@ class randomWord:
     def __repr__(self):
         return self.word
         
-#Method for creating the initial blank list with the correct amount of letters
-def blankList():
-    answer = randomWord()
-    
-    list = []
-    
-    for letter in range(answer.len):
-        list += ["_"]
-    return list, answer, answer.len
 
 #class for all the attributes of the word
 class Play():
+    def blankList():
+        answer = randomWord()
+    
+        list = []
+    
+        for letter in range(answer.len):
+            list += ["_"]
+        return list, answer, answer.len
+
     def __init__(self):
         self.key = blankList()
         self.list = self.key[0]
@@ -56,7 +56,7 @@ def interface():
     #To print out the interface
     def visual(answer):
         incorrectparts = ["O", "|", " \\", "/", "|", "/", "\\"]
-        blanklist = ["  " for letter in range(len(incorrectparts))]
+        blanklist = [" " for letter in range(len(incorrectparts))]
         for ind in range(answer.guesses):
             blanklist[ind] = incorrectparts[ind]
 
